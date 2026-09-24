@@ -93,6 +93,7 @@ def test_a_russian_inn_has_two_lengths():
 def test_a_kazakhstani_biniin_has_twelve_digits():
     """Both BIN and IIN share same twelve digits, so anything else is rejected."""
     assert VALIDATORS["kz_biniin"]("131240011813")  is None
+    assert VALIDATORS["kz_biniin"]("05094000284")   == "length"    # 11
     assert VALIDATORS["kz_biniin"]("0509400028481") == "length"    # 13
     assert VALIDATORS["kz_biniin"]("97124000131a")  == "invalid"   # non-digit
 
@@ -100,7 +101,7 @@ def test_a_kazakhstani_biniin_has_twelve_digits():
 def test_a_kazakhstani_biniin_that_passes_only_the_second_checksum():
     """A value satisfying only the second pass; without it that branch is
     untested and a regression there would silently reject real users."""
-    assert VALIDATORS["kz_biniin"]("971240004316") is None
+    assert VALIDATORS["kz_biniin"]("971240004316")  is None
     assert VALIDATORS["kz_biniin"]("950640000959")  is None
 
 
